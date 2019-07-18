@@ -22,7 +22,7 @@ import mhh.com.gotennaapp.repo.dao.AppDatabase;
     }
 
     @Provides @Singleton public DataRepo provideDataRepo(AppDatabase appDatabase) {
-        return DataRepo.getInstance(appDatabase);
+        return DataRepo.Companion.getInstance(appDatabase);
     }
 
     @Provides @Singleton public AppDatabase provideAppDatabase(Context context) {

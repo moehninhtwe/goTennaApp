@@ -66,8 +66,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //get current location
         if (hasCurrentLocationPermission()) getCurrentLocation();
 
-        placeViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(PlaceViewModel.class);
+        placeViewModel = ViewModelProviders.of(this, viewModelFactory).get(PlaceViewModel.class);
 
         placeViewModel.getPlaces(isFromDatabase).observe(this, new Observer<List<Place>>() {
             @Override public void onChanged(List<Place> places) {
@@ -163,20 +162,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override public void onMapReady(GoogleMap googleMap) {
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (Place place : placeList) {
-            LatLng location = new LatLng(place.getLatitude(), place.getLongitude());
-            googleMap.addMarker(new MarkerOptions().position(location).title(place.getName()))
-                .showInfoWindow();
-            builder.include(location);
-        }
+        if (placeList != null && placeList.size() != 0) {
+            for (Place place : placeList) {
+                LatLng location = new LatLng(place.getLatitude(), place.getLongitude());
+                googleMap.addMarker(new MarkerOptions().position(location).title(place.getName()))
+                    .showInfoWindow();
+                builder.include(location);
+            }
 
-        if (currentLocation != null) {
-            LatLng current =
-                new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-            googleMap.addMarker(new MarkerOptions().position(current).title("your are here"))
-                .showInfoWindow();
-            builder.include(current);
+            if (currentLocation != null) {
+                LatLng current =
+                    new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                googleMap.addMarker(new MarkerOptions().position(current).title("your are here"))
+                    .showInfoWindow();
+                builder.include(current);
+            }
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 0));
         }
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 0));
     }
 }

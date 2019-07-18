@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+  <data>
+    <variable name="btnText" type="String"/>
+    <variable name="listener" type="mhh.com.gotennaapp.module.place.ButtonClickListener"/>
+  </data>
+  <RelativeLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context=".MainActivity">
+    <LinearLayout
+        android:id="@+id/ll_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
+    <Button
+        android:id="@+id/btn_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:text="@{btnText}"
+        android:onClick="@{()->listener.onClick()}"/>
+
+  </RelativeLayout>
+</layout>

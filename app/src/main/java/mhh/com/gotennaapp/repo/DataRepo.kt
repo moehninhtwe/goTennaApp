@@ -12,6 +12,21 @@ import retrofit2.Response
 class DataRepo private constructor(private val appDatabase: AppDatabase) {
     private var listOfPlaces: List<Place>? = null
 
+    companion object {
+        private var dataRepo: DataRepo? = null
+
+        fun getInstance(appDatabase: AppDatabase): DataRepo? {
+            if (dataRepo == null) {
+                synchronized(DataRepo::class.java) {
+                    if (dataRepo == null) {
+                        dataRepo = DataRepo(appDatabase)
+                    }
+                }
+            }
+            return dataRepo
+        }
+    }
+
     val placesFromDatabase: LiveData<List<Place>>
         get() = appDatabase.placesDao.places
 
@@ -35,18 +50,4 @@ class DataRepo private constructor(private val appDatabase: AppDatabase) {
         appDatabase.placesDao.insertPlaces(listOfPlaces)
     }
 
-    companion object {
-        private var dataRepo: DataRepo? = null
-
-        fun getInstance(appDatabase: AppDatabase): DataRepo? {
-            if (dataRepo == null) {
-                synchronized(DataRepo::class.java) {
-                    if (dataRepo == null) {
-                        dataRepo = DataRepo(appDatabase)
-                    }
-                }
-            }
-            return dataRepo
-        }
-    }
 }

@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void setListView() {
-        PlaceListFragment placeListFragment = PlaceListFragment.getInstance(placeList);
+        PlaceListFragment placeListFragment = PlaceListFragment.Companion.getInstance(placeList);
         placeListFragment.setRetainInstance(true);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.ll_fragment_container, placeListFragment);

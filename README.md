@@ -10,3 +10,8 @@ Known issues - current location won't be shown up on Map for the very first laun
                and getting current location is running pararrelly with getting other locations and pinning them on map.
              - If there is no data to display, users are seeing blank page rather than an error message.
              - or other issues that I haven't found out yet.
+             - can't use annotation @Parcelize for my parcelable class, so still keep those read/write to parcel codes
+             
+ I took roughly 16-18 hours to complete this.
+             
+       
